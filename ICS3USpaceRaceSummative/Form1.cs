@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ICS3USpaceRaceSummative
 {
-    public partial class Form1 : Form
+    public partial class SpaceRace : Form
     {
-        public Form1()
+        public SpaceRace()
         {
             InitializeComponent();
         }
