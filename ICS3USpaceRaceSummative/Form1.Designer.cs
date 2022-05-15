@@ -33,11 +33,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.scoreLabel1 = new System.Windows.Forms.Label();
             this.scoreLabel2 = new System.Windows.Forms.Label();
+            this.titleLabel = new System.Windows.Forms.Label();
+            this.subTitleLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gameTimer
             // 
-            this.gameTimer.Enabled = true;
             this.gameTimer.Interval = 45;
             this.gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
             // 
@@ -60,17 +61,41 @@
             this.scoreLabel1.Size = new System.Drawing.Size(142, 24);
             this.scoreLabel1.TabIndex = 1;
             this.scoreLabel1.Text = "scoreLabel1";
+            this.scoreLabel1.Visible = false;
             // 
             // scoreLabel2
             // 
             this.scoreLabel2.AutoSize = true;
             this.scoreLabel2.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scoreLabel2.ForeColor = System.Drawing.Color.White;
-            this.scoreLabel2.Location = new System.Drawing.Point(646, 489);
+            this.scoreLabel2.Location = new System.Drawing.Point(655, 489);
             this.scoreLabel2.Name = "scoreLabel2";
             this.scoreLabel2.Size = new System.Drawing.Size(142, 24);
             this.scoreLabel2.TabIndex = 2;
             this.scoreLabel2.Text = "scoreLabel2";
+            this.scoreLabel2.Visible = false;
+            // 
+            // titleLabel
+            // 
+            this.titleLabel.AutoSize = true;
+            this.titleLabel.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.titleLabel.ForeColor = System.Drawing.Color.Transparent;
+            this.titleLabel.Location = new System.Drawing.Point(312, 241);
+            this.titleLabel.Name = "titleLabel";
+            this.titleLabel.Size = new System.Drawing.Size(197, 37);
+            this.titleLabel.TabIndex = 3;
+            this.titleLabel.Text = "titleLabel";
+            // 
+            // subTitleLabel
+            // 
+            this.subTitleLabel.AutoSize = true;
+            this.subTitleLabel.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.subTitleLabel.ForeColor = System.Drawing.Color.Transparent;
+            this.subTitleLabel.Location = new System.Drawing.Point(159, 303);
+            this.subTitleLabel.Name = "subTitleLabel";
+            this.subTitleLabel.Size = new System.Drawing.Size(112, 18);
+            this.subTitleLabel.TabIndex = 4;
+            this.subTitleLabel.Text = "subTitleLabel";
             // 
             // SpaceRace
             // 
@@ -78,11 +103,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(800, 550);
+            this.Controls.Add(this.subTitleLabel);
+            this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.scoreLabel2);
             this.Controls.Add(this.scoreLabel1);
             this.Controls.Add(this.label1);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "SpaceRace";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
@@ -98,6 +127,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label scoreLabel1;
         private System.Windows.Forms.Label scoreLabel2;
+        private System.Windows.Forms.Label titleLabel;
+        private System.Windows.Forms.Label subTitleLabel;
     }
 }
 

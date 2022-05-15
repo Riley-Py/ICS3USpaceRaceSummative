@@ -43,6 +43,8 @@ namespace ICS3USpaceRaceSummative
 
         SolidBrush whiteBrush = new SolidBrush(Color.White);
 
+        string gameState = "Waiting";
+
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -81,41 +83,81 @@ namespace ICS3USpaceRaceSummative
                 case Keys.Down:
                     downKey = true;
                     break;
+                case Keys.Space:
+                    if (gameState == "Waiting" || gameState == "Over")
+                    {
+                        GameInit();
+                    }
+                    break;
+                case Keys.Escape:
+                    if (gameState == "Waiting" || gameState == "Over")
+                    {
+                        Application.Exit();
+                    }
+                    break;
             }
 
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.FillRectangle(whiteBrush, player1);
-            e.Graphics.FillRectangle(whiteBrush, player2);
+            if (gameState == "Waiting")
+            {
+                titleLabel.Text = "SPACE RACE";
+                subTitleLabel.Text = "Press the Space Bar to get started or the Escape key to exit!";
+            }
+            else if (gameState == "Running")
+            {
+                e.Graphics.FillRectangle(whiteBrush, player1);
+                e.Graphics.FillRectangle(whiteBrush, player2);
 
-            for (int i = 0; i < leftSide.Count(); i++)
-            {
-                e.Graphics.FillRectangle(whiteBrush, leftSide[i]);
+                for (int i = 0; i < leftSide.Count(); i++)
+                {
+                    e.Graphics.FillRectangle(whiteBrush, leftSide[i]);
+                }
+                for (int i = 0; i < rightSide.Count(); i++)
+                {
+                    e.Graphics.FillRectangle(whiteBrush, rightSide[i]);
+                }
+
+                Scoring();
+                
+
             }
-            for (int i = 0; i < rightSide.Count(); i++)
+            else if (gameState == "Over")
             {
-                e.Graphics.FillRectangle(whiteBrush, rightSide[i]);
+                if (player1Score == 3)
+                {
+                    titleLabel.Text = "Player 1 has won!";
+                    subTitleLabel.Text = "Do you want to play again?  Press the Space bar to try again or the Escape key to exit";
+
+                }
+                else if (player2Score == 3)
+                {
+                    titleLabel.Text = "Player 2 has won!";
+                    subTitleLabel.Text = "Do you want to play again?  Press the Space bar to try again or the Escape key to exit";
+                }
+
             }
+            
 
         }
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            playerMovements();
+            PlayerMovements();
 
-            leftSideMovements();
+            LeftSideMovements();
 
-            rightSideMovements();
+            RightSideMovements();
 
-            collision();
+            Collision();
 
             Refresh();
 
         }
 
-        public void playerMovements()
+        public void PlayerMovements()
         {
             if (wDown == true && player1.Y > 0)
             {
@@ -137,7 +179,7 @@ namespace ICS3USpaceRaceSummative
 
         }
 
-        public void leftSideMovements()
+        public void LeftSideMovements()
         {
             for (int i = 0; i < leftSide.Count(); i++)
             {
@@ -160,7 +202,7 @@ namespace ICS3USpaceRaceSummative
             }
 
         }
-        public void rightSideMovements()
+        public void RightSideMovements()
         {
             for (int i = 0; i < rightSide.Count(); i++)
             {
@@ -183,7 +225,7 @@ namespace ICS3USpaceRaceSummative
 
         }
 
-        public void collision()
+        public void Collision()
         {
             for (int i = 0; i < leftSide.Count(); i++)
             {
@@ -191,45 +233,97 @@ namespace ICS3USpaceRaceSummative
                 {
                     if (player1.IntersectsWith(leftSide[i]) || player1.IntersectsWith(rightSide[i2]))
                     {
-                        restartPlayer1();
+                        RestartPlayer1();
                     }
                     else if (player2.IntersectsWith(leftSide[i]) || player2.IntersectsWith(rightSide[i2]))
                     {
-                        restartPlayer2();
+                        RestartPlayer2();
                     }
                 }
             }
             if (player1.Y == 0)
             {
                 player1Score++;
-                restartPlayer1();
-                scoring();
+                RestartPlayer1();
+                Scoring();
                 
 
             }
             if (player2.Y == 0)
             {
                 player2Score++;
-                restartPlayer2();
-                scoring();
+                RestartPlayer2();
+                Scoring();
             }
         }
-        public void restartPlayer1()
+        public void RestartPlayer1()
         {
             player1.X = 230;
             player1.Y = 450;
         }
-        public void restartPlayer2()
+        public void RestartPlayer2()
         {
             player2.X = 550;
             player2.Y = 450;
         }
 
-        public void scoring()
+        public void Scoring()
         {
+            if (scoreLabel1.Visible == false && scoreLabel2.Visible == false)
+            {
+                scoreLabel1.Visible = true;
+                scoreLabel2.Visible = true;
+            }
+
             scoreLabel1.Text = $"{player1Score}";
             scoreLabel2.Text = $"{player2Score}";
 
+            if (player1Score == 3 || player2Score == 3)
+            {
+                GameOver();
+            }
+
         }
+
+        public void GameInit()
+        {
+            titleLabel.Text = "";
+            subTitleLabel.Text = "";
+
+            gameState = "Running";
+            gameTimer.Enabled = true;
+
+            RestartPlayer1();
+            RestartPlayer2();
+
+            leftSide.Clear();
+            rightSide.Clear();
+            rectangleSpeedLeft.Clear();
+            rectangleSpeedRight.Clear();
+
+            player1Score = 0;
+            player2Score = 0;
+
+            Scoring();
+
+            this.Focus();
+            
+
+
+
+        }
+        public void GameOver()
+        { 
+            
+
+            scoreLabel1.Visible = false;
+            scoreLabel2.Visible = false;
+
+            gameState = "Over";
+
+            
+        }
+
+        
     }
 }
