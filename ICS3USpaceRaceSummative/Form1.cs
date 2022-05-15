@@ -18,24 +18,31 @@ namespace ICS3USpaceRaceSummative
         {
             InitializeComponent();
         }
-
+        //Variables for keys
         bool wDown = false;
         bool sDown = false;
         bool upKey = false;
         bool downKey = false;
 
+        //Players
         Rectangle player1 = new Rectangle(230, 450, 10, 30);
         Rectangle player2 = new Rectangle(550, 450, 10, 30);
 
+        //Lists for missles
         List<Rectangle> leftSide = new List<Rectangle>();
         List<Rectangle> rightSide = new List<Rectangle>();
 
+        //Lists for speeds of missles
         List<int> rectangleSpeedLeft = new List<int>();
         List<int> rectangleSpeedRight = new List<int>();
 
         int playerSpeed = 5;
+
+        //Size of missles
         int misslesX = 5;
         int misslesY = 7;
+
+        //Scores
         int player1Score = 0;
         int player2Score = 0;
 
@@ -43,10 +50,12 @@ namespace ICS3USpaceRaceSummative
 
         SolidBrush whiteBrush = new SolidBrush(Color.White);
 
+        //Used to change between screens (better way of doing this?)
         string gameState = "Waiting";
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
+            //Key is up, down is false
             switch (e.KeyCode)
             {
                 case Keys.W:
@@ -69,6 +78,7 @@ namespace ICS3USpaceRaceSummative
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
+            //Key is down, down is true
             switch (e.KeyCode)
             {
                 case Keys.W:
@@ -83,6 +93,7 @@ namespace ICS3USpaceRaceSummative
                 case Keys.Down:
                     downKey = true;
                     break;
+                //The space and escape key check to see what screen the game is on
                 case Keys.Space:
                     if (gameState == "Waiting" || gameState == "Over")
                     {
@@ -101,11 +112,13 @@ namespace ICS3USpaceRaceSummative
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
+            //Beginning screen
             if (gameState == "Waiting")
             {
                 titleLabel.Text = "SPACE RACE";
                 subTitleLabel.Text = "Press the Space Bar to get started or the Escape key to exit!";
             }
+            //Drawing everything to screen
             else if (gameState == "Running")
             {
                 e.Graphics.FillRectangle(whiteBrush, player1);
@@ -124,6 +137,7 @@ namespace ICS3USpaceRaceSummative
                 
 
             }
+            //End screen
             else if (gameState == "Over")
             {
                 if (player1Score == 3)
@@ -145,6 +159,7 @@ namespace ICS3USpaceRaceSummative
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
+            //Game loop
             PlayerMovements();
 
             LeftSideMovements();
@@ -156,7 +171,9 @@ namespace ICS3USpaceRaceSummative
             Refresh();
 
         }
-
+        /// <summary>
+        /// Controls the player movements
+        /// </summary>
         public void PlayerMovements()
         {
             if (wDown == true && player1.Y > 0)
@@ -178,7 +195,9 @@ namespace ICS3USpaceRaceSummative
             }
 
         }
-
+        /// <summary>
+        /// Controls the left side of the missles
+        /// </summary>
         public void LeftSideMovements()
         {
             for (int i = 0; i < leftSide.Count(); i++)
@@ -194,6 +213,7 @@ namespace ICS3USpaceRaceSummative
 
             }
             int y = randGen.Next(10, 400);
+            //Limits the amount of missles on screen at a time
             if (leftSide.Count() < 15)
             {
                 leftSide.Add(new Rectangle(10, y, misslesX, misslesY));
@@ -202,11 +222,16 @@ namespace ICS3USpaceRaceSummative
             }
 
         }
+        /// <summary>
+        /// Controls the right side of the missles
+        /// </summary>
         public void RightSideMovements()
         {
             for (int i = 0; i < rightSide.Count(); i++)
             {
+                //Subtracts it for the missle to go the other way
                 int x = rightSide[i].X - rectangleSpeedRight[i];
+
                 rightSide[i] = new Rectangle(x, rightSide[i].Y, misslesX, misslesY);
 
                 if (rightSide[i].X <= 0)
@@ -217,6 +242,7 @@ namespace ICS3USpaceRaceSummative
 
             }
             int y = randGen.Next(10, 400);
+            //Limits the amount of missles on screen at a time
             if (rightSide.Count() < 10)
             {
                 rightSide.Add(new Rectangle(790, y, misslesX, misslesY));
@@ -224,7 +250,9 @@ namespace ICS3USpaceRaceSummative
             }
 
         }
-
+        /// <summary>
+        /// Deals with collision with all objects on screen
+        /// </summary>
         public void Collision()
         {
             for (int i = 0; i < leftSide.Count(); i++)
@@ -256,17 +284,25 @@ namespace ICS3USpaceRaceSummative
                 Scoring();
             }
         }
+        /// <summary>
+        /// Restarts Player 1
+        /// </summary>
         public void RestartPlayer1()
         {
             player1.X = 230;
             player1.Y = 450;
         }
+        /// <summary>
+        /// Restarts Player 2
+        /// </summary>
         public void RestartPlayer2()
         {
             player2.X = 550;
             player2.Y = 450;
         }
-
+        /// <summary>
+        /// Keeps score of the game between the players
+        /// </summary>
         public void Scoring()
         {
             if (scoreLabel1.Visible == false && scoreLabel2.Visible == false)
@@ -284,7 +320,9 @@ namespace ICS3USpaceRaceSummative
             }
 
         }
-
+        /// <summary>
+        /// Initializes the game if space bar is pressed at beginning or end
+        /// </summary>
         public void GameInit()
         {
             titleLabel.Text = "";
@@ -312,6 +350,9 @@ namespace ICS3USpaceRaceSummative
 
 
         }
+        /// <summary>
+        /// What to do if either player gets to 3
+        /// </summary>
         public void GameOver()
         { 
             
