@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SpaceRace));
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.scoreLabel1 = new System.Windows.Forms.Label();
@@ -56,7 +57,7 @@
             this.scoreLabel1.AutoSize = true;
             this.scoreLabel1.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scoreLabel1.ForeColor = System.Drawing.Color.White;
-            this.scoreLabel1.Location = new System.Drawing.Point(9, 489);
+            this.scoreLabel1.Location = new System.Drawing.Point(50, 489);
             this.scoreLabel1.Name = "scoreLabel1";
             this.scoreLabel1.Size = new System.Drawing.Size(142, 24);
             this.scoreLabel1.TabIndex = 1;
@@ -78,7 +79,7 @@
             // titleLabel
             // 
             this.titleLabel.AutoSize = true;
-            this.titleLabel.Font = new System.Drawing.Font("Consolas", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.titleLabel.Font = new System.Drawing.Font("Consolas", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleLabel.ForeColor = System.Drawing.Color.Transparent;
             this.titleLabel.Location = new System.Drawing.Point(312, 241);
             this.titleLabel.Name = "titleLabel";
@@ -91,7 +92,7 @@
             this.subTitleLabel.AutoSize = true;
             this.subTitleLabel.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.subTitleLabel.ForeColor = System.Drawing.Color.Transparent;
-            this.subTitleLabel.Location = new System.Drawing.Point(159, 303);
+            this.subTitleLabel.Location = new System.Drawing.Point(159, 296);
             this.subTitleLabel.Name = "subTitleLabel";
             this.subTitleLabel.Size = new System.Drawing.Size(112, 18);
             this.subTitleLabel.TabIndex = 4;
@@ -110,6 +111,7 @@
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SpaceRace";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";

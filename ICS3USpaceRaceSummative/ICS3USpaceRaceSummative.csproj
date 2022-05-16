@@ -65,6 +65,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -78,6 +79,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Missile launch Sound effect-1qUN59Oebe0.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Explosion Sound Effect-SMILHbbADJw.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Yayyy! Sound Effect-8SoovMIylmA.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Final Fantasy VII  - Victory Fanfare %28HQ%29-vD9ZgJ8ETm4.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

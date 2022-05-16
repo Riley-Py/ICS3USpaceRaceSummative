@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Media;
 /*********************************************************************************
  * Author: Riley Cant
  * Course: ICS3U
@@ -17,6 +18,10 @@ namespace ICS3USpaceRaceSummative
         public SpaceRace()
         {
             InitializeComponent();
+            //Loads up the sounds right when the program is started
+            playerSounds.Load();
+            explosion.Load();
+            end.Load();
         }
         //Variables for keys
         bool wDown = false;
@@ -52,6 +57,13 @@ namespace ICS3USpaceRaceSummative
 
         //Used to change between screens (better way of doing this?)
         string gameState = "Waiting";
+
+        SoundPlayer playerSounds = new SoundPlayer(Properties.Resources.PlayerSound);
+        SoundPlayer explosion = new SoundPlayer(Properties.Resources.Explosion);
+        SoundPlayer end = new SoundPlayer(Properties.Resources.End);
+       
+        
+        
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
@@ -143,13 +155,13 @@ namespace ICS3USpaceRaceSummative
                 if (player1Score == 3)
                 {
                     titleLabel.Text = "Player 1 has won!";
-                    subTitleLabel.Text = "Do you want to play again?  Press the Space bar to try again or the Escape key to exit";
+                    subTitleLabel.Text = "Do you want to play again?  Press the Space bar to try again\nor the Escape key to exit";
 
                 }
                 else if (player2Score == 3)
                 {
                     titleLabel.Text = "Player 2 has won!";
-                    subTitleLabel.Text = "Do you want to play again?  Press the Space bar to try again or the Escape key to exit";
+                    subTitleLabel.Text = "Do you want to play again?  Press the Space bar to try again\nor the Escape key to exit";
                 }
 
             }
@@ -179,19 +191,27 @@ namespace ICS3USpaceRaceSummative
             if (wDown == true && player1.Y > 0)
             {
                 player1.Y -= playerSpeed;
+                playerSounds.Play();
+               
 
             }
             if (upKey == true && player2.Y > 0)
             {
                 player2.Y -= playerSpeed;
+                playerSounds.Play();
+
             }
             if (sDown == true && player1.Y < this.Height - player1.Height)
             {
                 player1.Y += playerSpeed;
+                playerSounds.Play();
+                ;
             }
             if (downKey == true && player2.Y < this.Height - player2.Height)
             {
                 player2.Y += playerSpeed;
+                playerSounds.Play();
+
             }
 
         }
@@ -262,26 +282,35 @@ namespace ICS3USpaceRaceSummative
                     if (player1.IntersectsWith(leftSide[i]) || player1.IntersectsWith(rightSide[i2]))
                     {
                         RestartPlayer1();
+                        explosion.Play();
                     }
                     else if (player2.IntersectsWith(leftSide[i]) || player2.IntersectsWith(rightSide[i2]))
                     {
                         RestartPlayer2();
+                        explosion.Play();
                     }
                 }
             }
+            //Checks if either player got to the end
             if (player1.Y == 0)
             {
                 player1Score++;
+
                 RestartPlayer1();
                 Scoring();
+
+                
                 
 
             }
             if (player2.Y == 0)
             {
                 player2Score++;
+
                 RestartPlayer2();
                 Scoring();
+
+               
             }
         }
         /// <summary>
@@ -317,6 +346,7 @@ namespace ICS3USpaceRaceSummative
             if (player1Score == 3 || player2Score == 3)
             {
                 GameOver();
+                end.PlayLooping();
             }
 
         }
@@ -343,6 +373,8 @@ namespace ICS3USpaceRaceSummative
             player2Score = 0;
 
             Scoring();
+
+            end.Stop();
 
             this.Focus();
             
