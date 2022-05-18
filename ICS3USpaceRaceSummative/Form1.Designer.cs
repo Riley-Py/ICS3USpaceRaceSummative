@@ -85,7 +85,7 @@
             this.titleLabel.AutoSize = true;
             this.titleLabel.Font = new System.Drawing.Font("Consolas", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleLabel.ForeColor = System.Drawing.Color.Transparent;
-            this.titleLabel.Location = new System.Drawing.Point(298, 241);
+            this.titleLabel.Location = new System.Drawing.Point(284, 238);
             this.titleLabel.Name = "titleLabel";
             this.titleLabel.Size = new System.Drawing.Size(197, 37);
             this.titleLabel.TabIndex = 3;
@@ -97,7 +97,7 @@
             this.subTitleLabel.AutoSize = true;
             this.subTitleLabel.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.subTitleLabel.ForeColor = System.Drawing.Color.Transparent;
-            this.subTitleLabel.Location = new System.Drawing.Point(159, 295);
+            this.subTitleLabel.Location = new System.Drawing.Point(131, 294);
             this.subTitleLabel.Name = "subTitleLabel";
             this.subTitleLabel.Size = new System.Drawing.Size(112, 18);
             this.subTitleLabel.TabIndex = 4;
@@ -131,7 +131,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(833, 550);
+            this.ClientSize = new System.Drawing.Size(785, 550);
             this.Controls.Add(this.player2Picture);
             this.Controls.Add(this.player1Picture);
             this.Controls.Add(this.subTitleLabel);
