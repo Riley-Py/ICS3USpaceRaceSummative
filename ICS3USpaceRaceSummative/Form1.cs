@@ -29,9 +29,6 @@ namespace ICS3USpaceRaceSummative
         bool upKey = false;
         bool downKey = false;
 
-        //Players
-        Rectangle player1 = new Rectangle(230, 450, 10, 30);
-        Rectangle player2 = new Rectangle(550, 450, 10, 30);
 
         //Lists for missles
         List<Rectangle> leftSide = new List<Rectangle>();
@@ -61,9 +58,9 @@ namespace ICS3USpaceRaceSummative
         SoundPlayer playerSounds = new SoundPlayer(Properties.Resources.PlayerSound);
         SoundPlayer explosion = new SoundPlayer(Properties.Resources.Explosion);
         SoundPlayer end = new SoundPlayer(Properties.Resources.End);
-       
-        
-        
+
+
+
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
@@ -124,6 +121,7 @@ namespace ICS3USpaceRaceSummative
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
+
             //Beginning screen
             if (gameState == "Waiting")
             {
@@ -133,8 +131,12 @@ namespace ICS3USpaceRaceSummative
             //Drawing everything to screen
             else if (gameState == "Running")
             {
-                e.Graphics.FillRectangle(whiteBrush, player1);
-                e.Graphics.FillRectangle(whiteBrush, player2);
+                //e.Graphics.FillRectangle(whiteBrush, player1);
+                //e.Graphics.FillRectangle(whiteBrush, player2);
+
+                //Used pictures instead of rectangles 
+                player1Picture.Visible = true;
+                player2Picture.Visible = true;
 
                 for (int i = 0; i < leftSide.Count(); i++)
                 {
@@ -146,7 +148,7 @@ namespace ICS3USpaceRaceSummative
                 }
 
                 Scoring();
-                
+
 
             }
             //End screen
@@ -156,6 +158,7 @@ namespace ICS3USpaceRaceSummative
                 {
                     titleLabel.Text = "Player 1 has won!";
                     subTitleLabel.Text = "Do you want to play again?  Press the Space bar to try again\nor the Escape key to exit";
+                    
 
                 }
                 else if (player2Score == 3)
@@ -165,7 +168,6 @@ namespace ICS3USpaceRaceSummative
                 }
 
             }
-            
 
         }
 
@@ -188,28 +190,27 @@ namespace ICS3USpaceRaceSummative
         /// </summary>
         public void PlayerMovements()
         {
-            if (wDown == true && player1.Y > 0)
-            {
-                player1.Y -= playerSpeed;
-                playerSounds.Play();
-               
-
-            }
-            if (upKey == true && player2.Y > 0)
-            {
-                player2.Y -= playerSpeed;
+            if (wDown == true && player1Picture.Top > 0)
+            {            
+                player1Picture.Top -= playerSpeed;
                 playerSounds.Play();
 
             }
-            if (sDown == true && player1.Y < this.Height - player1.Height)
-            {
-                player1.Y += playerSpeed;
+            if (upKey == true && player2Picture.Top > 0)
+            {         
+                player2Picture.Top -= playerSpeed;
                 playerSounds.Play();
-                ;
+
             }
-            if (downKey == true && player2.Y < this.Height - player2.Height)
+            if (sDown == true && player1Picture.Top < this.Height - player1Picture.Height)
             {
-                player2.Y += playerSpeed;
+                player1Picture.Top += playerSpeed;
+                playerSounds.Play();
+
+            }
+            if (downKey == true && player2Picture.Top < this.Height - player2Picture.Height)
+            {
+                player2Picture.Top += playerSpeed;
                 playerSounds.Play();
 
             }
@@ -279,12 +280,12 @@ namespace ICS3USpaceRaceSummative
             {
                 for (int i2 = 0; i2 < rightSide.Count; i2++)
                 {
-                    if (player1.IntersectsWith(leftSide[i]) || player1.IntersectsWith(rightSide[i2]))
+                    if (player1Picture.Bounds.IntersectsWith(leftSide[i]) || player1Picture.Bounds.IntersectsWith(rightSide[i2]))
                     {
                         RestartPlayer1();
                         explosion.Play();
                     }
-                    else if (player2.IntersectsWith(leftSide[i]) || player2.IntersectsWith(rightSide[i2]))
+                    else if (player2Picture.Bounds.IntersectsWith(leftSide[i]) || player2Picture.Bounds.IntersectsWith(rightSide[i2]))
                     {
                         RestartPlayer2();
                         explosion.Play();
@@ -292,25 +293,21 @@ namespace ICS3USpaceRaceSummative
                 }
             }
             //Checks if either player got to the end
-            if (player1.Y == 0)
+            if (player1Picture.Top == 0)
             {
                 player1Score++;
 
                 RestartPlayer1();
                 Scoring();
 
-                
-                
-
             }
-            if (player2.Y == 0)
+            if (player2Picture.Top == 0)
             {
                 player2Score++;
 
                 RestartPlayer2();
                 Scoring();
 
-               
             }
         }
         /// <summary>
@@ -318,16 +315,15 @@ namespace ICS3USpaceRaceSummative
         /// </summary>
         public void RestartPlayer1()
         {
-            player1.X = 230;
-            player1.Y = 450;
+            player1Picture.Location = new Point(230, 450);
         }
         /// <summary>
         /// Restarts Player 2
         /// </summary>
         public void RestartPlayer2()
         {
-            player2.X = 550;
-            player2.Y = 450;
+
+            player2Picture.Location = new Point(550, 450);
         }
         /// <summary>
         /// Keeps score of the game between the players
@@ -346,7 +342,9 @@ namespace ICS3USpaceRaceSummative
             if (player1Score == 3 || player2Score == 3)
             {
                 GameOver();
-                end.PlayLooping();
+                playerSounds.Dispose();
+                playerSounds.Stop();
+                end.Play();
             }
 
         }
@@ -377,26 +375,24 @@ namespace ICS3USpaceRaceSummative
             end.Stop();
 
             this.Focus();
-            
-
-
 
         }
         /// <summary>
         /// What to do if either player gets to 3
         /// </summary>
         public void GameOver()
-        { 
-            
+        {
 
             scoreLabel1.Visible = false;
             scoreLabel2.Visible = false;
 
+            player1Picture.Visible = false;
+            player2Picture.Visible = false;
+
             gameState = "Over";
 
-            
-        }
+         
 
-        
+        }
     }
 }

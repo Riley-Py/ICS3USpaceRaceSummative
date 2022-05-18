@@ -92,5 +92,17 @@
   <ItemGroup>
     <None Include="Resources\Final Fantasy VII  - Victory Fanfare %28HQ%29-vD9ZgJ8ETm4.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\spaceShip.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cddab8e343d6f0f803b3d646877eded9.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Spaceship-PNG-Pic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rocket-ship-png-30450.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

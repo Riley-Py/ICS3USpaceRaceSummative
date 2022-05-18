@@ -86,5 +86,15 @@ namespace ICS3USpaceRaceSummative.Properties {
                 return ResourceManager.GetStream("PlayerSound", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap spaceship4 {
+            get {
+                object obj = ResourceManager.GetObject("spaceship4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
